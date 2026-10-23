@@ -784,9 +784,9 @@ RdmaContext::MemReg RdmaContext::registerMemReg(void* addr, size_t length,
                                     : Platform::getLoader().exportDmabuf(
                                           addr, length, handle);
         if (s.ok()) {
-            entry = verbs_.ibv_reg_dmabuf_mr(
-                native_pd_, handle.offset, length,
-                reinterpret_cast<uint64_t>(addr), handle.fd, access);
+            entry = verbs_.ibv_reg_dmabuf_mr(native_pd_, handle.offset, length,
+                                             reinterpret_cast<uint64_t>(addr),
+                                             handle.fd, access);
             // The MR takes its own reference to the dma-buf. The fd itself
             // stays with the exporting runtime (see DmabufExport): Level
             // Zero hands out one cached descriptor per allocation, so
